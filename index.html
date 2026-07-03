@@ -1,0 +1,1976 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>即创 - 热门素材创意榜单 UI 稿</title>
+  <style>
+    :root {
+      --bg: #0f0c18;
+      --panel: #211a2e;
+      --panel2: #171320;
+      --panel3: #2a2038;
+      --line: rgba(255,255,255,.08);
+      --line2: rgba(255,255,255,.14);
+      --text: #f7f2ff;
+      --muted: #a99fb6;
+      --subtle: #776d86;
+      --purple: #7b3cff;
+      --purple2: #a855f7;
+      --cyan: #25e6d8;
+      --yellow: #ffd33d;
+      --green: #4ee08f;
+      --orange: #ff9f43;
+      --danger: #ff667a;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 1180px;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 276px 1fr;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 34% -10%, rgba(123,60,255,.14), transparent 36%),
+        linear-gradient(180deg, #11101a 0%, #0e0b16 100%);
+    }
+    .sidebar {
+      padding: 24px 20px;
+      background: rgba(12,10,18,.72);
+      border-right: 1px solid rgba(255,255,255,.05);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 44px;
+    }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(from 220deg, #00dcff, #7b3cff, #ff4fd8, #00dcff);
+      position: relative;
+    }
+    .logo-mark:after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 6px;
+      background: #11101a;
+    }
+    .nav-title {
+      color: #665d72;
+      font-size: 14px;
+      margin: 26px 0 10px;
+      padding-left: 18px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 48px;
+      color: #bdb5c9;
+      border-radius: 8px;
+      padding: 0 18px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .nav-item.active { color: #fff; background: #261f32; }
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      border: 1.6px solid currentColor;
+      border-radius: 5px;
+      opacity: .88;
+    }
+    .nav-sep { height: 1px; background: rgba(255,255,255,.09); margin: 22px 0; }
+    .main { padding: 22px 24px 48px; min-width: 0; }
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 14px;
+      background: #211a2e;
+      color: #ddd6ea;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #241d31;
+      font-weight: 900;
+    }
+    .hero-tools {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1.12fr);
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+    .hero-tools > * { min-width: 0; }
+    .banner {
+      height: 142px;
+      border-radius: 12px;
+      padding: 26px 32px;
+      background:
+        linear-gradient(90deg, rgba(101,34,220,.9), rgba(49,14,92,.72)),
+        radial-gradient(circle at 78% 40%, rgba(37,230,216,.45), transparent 24%);
+      overflow: hidden;
+      position: relative;
+    }
+    .banner:after {
+      content: "AI";
+      position: absolute;
+      right: 60px;
+      top: 12px;
+      font-size: 112px;
+      line-height: 1;
+      font-weight: 900;
+      color: rgba(255,255,255,.12);
+      transform: skew(-12deg);
+    }
+    .banner h1 { margin: 0 0 10px; font-size: 28px; letter-spacing: 0; }
+    .banner p { margin: 0 0 20px; color: #ddd0ff; font-size: 13px; }
+    .banner .cta {
+      display: inline-flex;
+      align-items: center;
+      height: 34px;
+      padding: 0 18px;
+      border-radius: 18px;
+      background: #7b25ff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .tool-card {
+      height: 142px;
+      border-radius: 12px;
+      background: #241e30;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      font-size: 20px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .tool-symbol {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #fff;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .page-tabs {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      margin-left: 8px;
+      margin-bottom: 8px;
+    }
+    .page-tab {
+      color: #8f859d;
+      font-size: 20px;
+      font-weight: 900;
+      padding-bottom: 12px;
+      position: relative;
+    }
+    .page-tab:not(.active) { cursor: pointer; }
+    .page-tab:not(.active):hover { color: rgba(255, 255, 255, 0.72); }
+    .page-tab.active { color: #fff; }
+    .page-tab.active:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 28px;
+      height: 3px;
+      border-radius: 2px;
+      transform: translateX(-50%);
+      background: var(--purple);
+    }
+    .top-search {
+      margin-left: 18px;
+      width: 360px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: #14111e;
+      color: #7d748a;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 14px;
+    }
+
+    .rank-module {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(35,27,48,.98), rgba(29,22,40,.98));
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.24);
+    }
+    .module-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+    .title-group { display: flex; align-items: center; gap: 12px; }
+    .title-group h2 { margin: 0; font-size: 20px; letter-spacing: 0; }
+    .tag-live {
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 10px;
+      border-radius: 14px;
+      background: rgba(255,211,61,.1);
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .tag-live:before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 0 4px rgba(255,211,61,.14);
+    }
+    .module-actions { display: flex; align-items: center; gap: 10px; }
+    .ghost-btn, .primary-btn, .dark-btn {
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .ghost-btn { background: rgba(255,255,255,.04); color: #ded6ec; }
+    .dark-btn { background: #171320; color: #d8d1e4; }
+    .primary-btn {
+      border-color: rgba(123,60,255,.6);
+      background: linear-gradient(90deg, #7b3cff, #9b43ff);
+      color: #fff;
+    }
+    .rank-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .rank-tab {
+      min-width: 0;
+      min-height: 54px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #181321;
+      padding: 9px 12px;
+      color: #bfb6cb;
+      cursor: pointer;
+    }
+    .rank-tab.active {
+      color: #fff;
+      border-color: rgba(123,60,255,.72);
+      background: linear-gradient(180deg, rgba(123,60,255,.2), rgba(123,60,255,.06)), #1a1425;
+      box-shadow: inset 0 0 0 1px rgba(123,60,255,.28);
+    }
+    .rank-tab strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .rank-tab span {
+      display: block;
+      color: #877d95;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rank-tab.active span { color: #baadff; }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(190px, 1fr) minmax(150px, .8fr) minmax(130px, .7fr) 1.45fr auto;
+      gap: 10px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 20;
+    }
+    .select, .rank-search {
+      height: 38px;
+      border-radius: 8px;
+      background: #171320;
+      border: 1px solid var(--line);
+      color: #d5ccdf;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 800;
+      position: relative;
+      cursor: pointer;
+    }
+    .select label { color: #867c92; margin-right: 6px; font-weight: 700; }
+    .select:after { content: "⌄"; margin-left: auto; color: #8f85a0; font-size: 16px; }
+    .rank-search { color: #756c82; cursor: default; }
+    .dropdown {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 42px;
+      min-width: 100%;
+      width: max-content;
+      max-width: 360px;
+      padding: 8px;
+      border-radius: 8px;
+      background: #211a2e;
+      border: 1px solid var(--line2);
+      box-shadow: 0 18px 44px rgba(0,0,0,.42);
+      z-index: 40;
+    }
+    .select.open .dropdown { display: grid; gap: 4px; }
+    .drop-option {
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      color: #dcd4e8;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .drop-option.active, .drop-option:hover { background: rgba(123,60,255,.18); color: #fff; }
+    .industry-menu {
+      grid-template-columns: repeat(3, auto);
+      gap: 4px 6px;
+    }
+
+    .rank-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.62fr) minmax(360px, .84fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+    .top-list {
+      display: grid;
+      gap: 10px;
+    }
+    .rank-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #17131f;
+      padding: 14px 12px;
+      min-height: 158px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rank-card.top1 {
+      background: linear-gradient(135deg, rgba(255,211,61,.08), transparent 34%), #17131f;
+      border-color: rgba(255,211,61,.22);
+    }
+    .rank-card.selected,
+    .side-item.selected,
+    .bgm-row.selected {
+      border-color: rgba(123,60,255,.85);
+      background:
+        linear-gradient(135deg, rgba(123,60,255,.18), rgba(37,230,216,.055)),
+        #17131f;
+      box-shadow: inset 0 0 0 1px rgba(123,60,255,.32), 0 0 0 1px rgba(123,60,255,.12);
+    }
+    .rank-main {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 174px;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .rank-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #ffe17a, #ff9f43);
+      display: grid;
+      place-items: center;
+      color: #21120d;
+      font-weight: 1000;
+      font-size: 14px;
+    }
+    .rank-card:not(.top1) .rank-badge {
+      background: #2b2238;
+      color: #d8d0e5;
+    }
+    .rank-body h3 {
+      margin: 0 0 7px;
+      font-size: 18px;
+      line-height: 1.26;
+      letter-spacing: 0;
+    }
+    .rank-feature {
+      margin: 0;
+      min-height: 40px;
+      color: #a99fb6;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .rank-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .meta-item {
+      min-height: 58px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.055);
+      padding: 9px 10px;
+    }
+    .meta-item strong { display: block; font-size: 15px; margin-bottom: 3px; }
+    .meta-item span {
+      display: block;
+      color: #8b8198;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .rank-side {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 8px;
+      min-width: 0;
+    }
+    .mini-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #a99fb6;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .star {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,211,61,.12);
+      color: var(--yellow);
+      font-size: 15px;
+      flex: 0 0 auto;
+    }
+    .spark {
+      width: 72px;
+      height: 26px;
+    }
+    .spark path {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .rep-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .rep {
+      height: 92px;
+      border-radius: 7px;
+      overflow: hidden;
+      background: #0f0c18;
+      border: 1px solid rgba(255,255,255,.08);
+      position: relative;
+    }
+    .rep[data-detail="routine"], .rep[data-fragment="shot"] { cursor: pointer; }
+    .rep:after, .video-thumb:after {
+      content: "▶";
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(123,60,255,.9);
+      color: #fff;
+      font-size: 9px;
+      z-index: 3;
+    }
+    .rep:not([data-detail="routine"]):not([data-fragment="shot"]):after { display: none; }
+    .rep[data-fragment="shot"]:before {
+      content: "前3s分镜";
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      z-index: 3;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+      border-radius: 5px;
+      color: #fff;
+      background: rgba(17,13,24,.72);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #0f0c18;
+    }
+    .side-board {
+      border-radius: 10px;
+      background: #17131f;
+      border: 1px solid var(--line);
+      padding: 12px;
+      min-height: 100%;
+    }
+    .side-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #d9d1e6;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .side-list { display: grid; gap: 8px; }
+    .side-item {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) 24px 72px 44px;
+      gap: 8px;
+      align-items: center;
+      min-height: 55px;
+      border-radius: 8px;
+      padding: 8px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.055);
+    }
+    .side-index { color: #a99fb6; font-weight: 1000; font-size: 12px; }
+    .side-main b {
+      display: block;
+      color: #f0eaf9;
+      font-size: 12px;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .side-main span {
+      display: block;
+      color: #82778f;
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .side-reps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .side-rep {
+      height: 34px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #0f0c18;
+      cursor: pointer;
+    }
+    .trend { color: var(--green); font-size: 12px; font-weight: 1000; text-align: right; }
+    .trend.hot { color: var(--orange); }
+    .trend.risk { color: var(--danger); }
+    .rank-pager {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 40px;
+      margin-top: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,.035);
+    }
+    .pager-btn,
+    .pager-page,
+    .pager-more {
+      display: grid;
+      place-items: center;
+      height: 26px;
+      min-width: 26px;
+      border-radius: 7px;
+      color: #9c91aa;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .pager-btn {
+      min-width: 58px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .pager-btn.disabled {
+      opacity: 0.42;
+    }
+    .pager-page.active {
+      color: #fff;
+      background: var(--purple);
+      box-shadow: 0 8px 18px rgba(123,60,255,.24);
+    }
+    .pager-total {
+      color: #80758c;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .rank-cta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 2px;
+    }
+    .tool-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .prefill-preview {
+      min-height: 64px;
+      border-radius: 8px;
+      border: 1px solid rgba(123,60,255,.28);
+      background: rgba(123,60,255,.08);
+      padding: 10px 12px;
+      color: #d8d0e5;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .prefill-preview b {
+      display: block;
+      margin-bottom: 4px;
+      color: #fff;
+      font-size: 13px;
+    }
+    .primary-btn[href] {
+      text-decoration: none;
+    }
+
+    body[data-rank="routine"] .rank-layout {
+      grid-template-columns: 1fr;
+    }
+    body[data-rank="routine"] .side-board {
+      display: none;
+    }
+    body[data-rank="routine"] .top-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .routine-tile {
+      min-height: 368px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)),
+        #11101a;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .routine-tile:hover,
+    .routine-tile.selected {
+      border-color: rgba(123,60,255,.9);
+      box-shadow: 0 0 0 1px rgba(123,60,255,.3), 0 18px 48px rgba(0,0,0,.34);
+      transform: translateY(-2px);
+    }
+    .routine-tile.top1 {
+      border-color: rgba(255,211,61,.42);
+      background:
+        linear-gradient(135deg, rgba(255,211,61,.09), transparent 42%),
+        #11101a;
+    }
+    .routine-ribbon {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      min-width: 50px;
+      justify-content: center;
+      padding: 0 13px;
+      border-radius: 16px;
+      background: rgba(5,4,9,.72);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(12px);
+      font-size: 13px;
+      font-weight: 1000;
+    }
+    .routine-ribbon strong {
+      color: #ffe07a;
+      letter-spacing: .3px;
+    }
+    .routine-ribbon span {
+      color: #f2edf8;
+    }
+    .stack-stage {
+      height: 262px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 30%, rgba(123,60,255,.2), transparent 28%),
+        #0d0b13;
+    }
+    .stack-video {
+      position: absolute;
+      width: 45%;
+      height: 76%;
+      top: 52px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0a0810;
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 12px 28px rgba(0,0,0,.48);
+    }
+    .stack-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .stack-video.is-static video {
+      filter: saturate(.92) brightness(.86);
+    }
+    .stack-video.is-dynamic {
+      box-shadow: 0 16px 34px rgba(0,0,0,.54), 0 0 0 1px rgba(123,60,255,.24);
+    }
+    .stack-video:nth-child(1) { left: 10%; transform: rotate(-8deg) translateY(13px); opacity: .62; }
+    .stack-video:nth-child(2) { left: 21%; transform: rotate(-4deg) translateY(7px); opacity: .78; }
+    .stack-video:nth-child(3) { left: 31%; transform: rotate(0deg); opacity: 1; z-index: 3; }
+    .stack-video:nth-child(4) { left: 43%; transform: rotate(4deg) translateY(8px); opacity: .78; }
+    .stack-video:nth-child(5) { left: 53%; transform: rotate(8deg) translateY(15px); opacity: .62; }
+    .routine-play {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 7;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, #8b5cf6, #7b3cff);
+      box-shadow: 0 10px 24px rgba(123,60,255,.35);
+      font-size: 16px;
+      font-weight: 900;
+    }
+    .routine-card-info {
+      padding: 20px 16px 16px;
+      background: rgba(255,255,255,.035);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .routine-card-info h3 {
+      margin: 0 0 16px;
+      min-height: 34px;
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+    .routine-metrics span {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      justify-content: center;
+      padding: 0 7px;
+      border-radius: 13px;
+      color: #d5cedf;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 10px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .routine-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+    .routine-metrics b {
+      margin-left: 4px;
+      color: #fff;
+      font-size: 12px;
+    }
+    .detail-related {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .detail-related-section {
+      margin: 0 0 16px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .detail-related-section h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+    .detail-related-section .detail-related {
+      margin-top: 0;
+    }
+    .detail-related-card {
+      height: 128px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f0c18;
+      border: 1px solid rgba(255,255,255,.1);
+      position: relative;
+      cursor: pointer;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .detail-related-card.active,
+    .detail-related-card:hover {
+      border-color: rgba(123,60,255,.88);
+      box-shadow: 0 0 0 1px rgba(123,60,255,.28), 0 12px 28px rgba(0,0,0,.28);
+      transform: translateY(-1px);
+    }
+    .detail-related-card:after {
+      content: attr(data-label);
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      padding: 0 7px;
+      border-radius: 6px;
+      background: rgba(17,13,24,.78);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .detail-related-card.active:after {
+      background: rgba(123,60,255,.92);
+    }
+    .routine-detail-structure {
+      margin: 8px 0 14px;
+      color: #b7adc5;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .bgm-board {
+      display: none;
+      border-radius: 10px;
+      background: #17131f;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .bgm-row {
+      display: grid;
+      grid-template-columns: 2.1fr 1fr 1fr 1fr 1.4fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .bgm-row:last-child { border-bottom: 0; }
+    .bgm-row:not(.bgm-head) { cursor: pointer; }
+    .bgm-head {
+      min-height: 38px;
+      background: rgba(255,255,255,.035);
+      color: #92879f;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .music-cell { display: flex; align-items: center; gap: 12px; }
+    .cover {
+      width: 46px;
+      height: 46px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #f0d6ff, #6f31d8 58%, #1c1329);
+      flex: 0 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover:after {
+      content: "";
+      position: absolute;
+      inset: 15px;
+      border: 2px solid rgba(255,255,255,.72);
+      border-radius: 50%;
+    }
+    .music-cell b, .bgm-row b { display: block; font-size: 13px; margin-bottom: 4px; }
+    .music-cell span, .bgm-row span { color: #8f859d; font-size: 12px; }
+    .industry-red { color: #ff638a; font-weight: 900; }
+    .bgm-videos {
+      display: grid;
+      grid-template-columns: repeat(3, 42px);
+      gap: 6px;
+    }
+    .bgm-videos .side-rep { height: 54px; border-radius: 6px; }
+
+    body[data-rank="bgm"] .rank-layout { display: none; }
+    body[data-rank="bgm"] .bgm-board { display: block; }
+    body[data-rank="shot"] .routine-only,
+    body[data-rank="script"] .routine-only,
+    body[data-rank="hot"] .routine-only,
+    body[data-rank="bgm"] .routine-only { display: none; }
+
+    .material-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 18px 0 10px;
+      color: #fff;
+      font-weight: 1000;
+      font-size: 18px;
+    }
+    .material-divider:before, .material-divider:after {
+      content: "";
+      height: 1px;
+      background: rgba(255,255,255,.11);
+      flex: 1;
+    }
+    .divider-note {
+      color: #8f849d;
+      font-size: 12px;
+      font-weight: 800;
+      margin-left: 8px;
+    }
+    .materials {
+      border-radius: 12px;
+      background: rgba(32,25,44,.92);
+      border: 1px solid rgba(255,255,255,.06);
+      padding: 16px;
+    }
+    .sortbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .sort-left, .sort-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: #a59aaf;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .sort-left .active {
+      background: #3a2b52;
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 16px;
+    }
+    .waterfall {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+    .material-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #2a2038;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .video-thumb {
+      height: 250px;
+      position: relative;
+      background: #0f0c18;
+    }
+    .video-thumb:before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      z-index: 2;
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: #fff;
+      background: rgba(20,18,24,.72);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .placeholder-thumb {
+      height: 250px;
+      position: relative;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,.16), rgba(255,255,255,0) 32%),
+        linear-gradient(160deg, #f5f0ec, #cfc5bd 45%, #50495a);
+    }
+    .placeholder-thumb:before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: #fff;
+      background: rgba(20,18,24,.72);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .placeholder-thumb:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 58px;
+      height: 58px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: rgba(255,255,255,.16);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.38);
+    }
+    .mat-info { padding: 12px; }
+    .mat-info p {
+      margin: 0 0 12px;
+      color: #d4cbdc;
+      font-size: 13px;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mat-stats { display: flex; gap: 26px; }
+    .mat-stats b { display: block; font-size: 16px; margin-bottom: 3px; }
+    .mat-stats span { color: #8b8198; font-size: 12px; }
+
+    .detail-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4,3,8,.76);
+      z-index: 100;
+      place-items: center;
+      padding: 36px;
+    }
+    .detail-modal.open { display: grid; }
+    .fragment-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 110;
+      place-items: center;
+      padding: 40px;
+      background: rgba(4,3,8,.76);
+    }
+    .fragment-modal.open { display: grid; }
+    .fragment-card {
+      width: min(520px, 92vw);
+      border-radius: 12px;
+      background: #17131f;
+      border: 1px solid var(--line2);
+      box-shadow: 0 26px 80px rgba(0,0,0,.58);
+      overflow: hidden;
+    }
+    .fragment-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      font-weight: 1000;
+    }
+    .fragment-video {
+      height: 560px;
+      background: #0f0c18;
+      position: relative;
+    }
+    .fragment-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+    .detail-page {
+      width: min(1560px, 96vw);
+      max-height: 88vh;
+      overflow: auto;
+      border-radius: 12px;
+      background: #17131f;
+      border: 1px solid var(--line2);
+      box-shadow: 0 26px 80px rgba(0,0,0,.58);
+      padding: 18px;
+    }
+    .detail-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .detail-head h2 { margin: 0; font-size: 20px; }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 470px 1fr;
+      gap: 22px;
+    }
+    .detail-video {
+      height: 680px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f0c18;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 0 0 1px rgba(37,230,216,.18);
+    }
+    .analysis-panel {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      position: relative;
+    }
+    .analysis-card {
+      border-radius: 10px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 12px;
+    }
+    .analysis-card h3 { margin: 0 0 10px; font-size: 15px; }
+    .progress {
+      position: relative;
+      height: 22px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #211a2e;
+      display: grid;
+      grid-template-columns: 14fr 16fr 20fr 12fr 14fr 12fr 12fr;
+      margin-bottom: 10px;
+    }
+    .progress span:nth-child(odd) { background: rgba(123,60,255,.76); }
+    .progress span:nth-child(even) { background: rgba(37,230,216,.62); }
+    .progress span {
+      cursor: pointer;
+      transition: filter .18s, box-shadow .18s;
+    }
+    .progress span.active {
+      filter: brightness(1.35);
+      box-shadow: inset 0 0 0 2px rgba(255,211,61,.96);
+    }
+    .shot-row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .18s, box-shadow .18s, padding .18s;
+    }
+    .shot-row.active {
+      background: rgba(255,211,61,.12);
+      box-shadow: inset 0 0 0 2px rgba(255,211,61,.75);
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .shot-row:last-child { border-bottom: 0; }
+    .shot-time { color: var(--cyan); font-size: 12px; font-weight: 900; }
+    .shot-row b { display: block; margin-bottom: 4px; font-size: 13px; }
+    .shot-row p { margin: 0; color: #9f95ab; font-size: 12px; line-height: 1.5; }
+
+    @media (max-width: 1360px) {
+      body { min-width: 1080px; }
+      .app { grid-template-columns: 230px 1fr; }
+      .hero-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .banner { grid-column: span 2; }
+      .tool-card { font-size: 16px; padding: 0 16px; }
+      .rank-layout { grid-template-columns: 1fr; }
+      .waterfall { grid-template-columns: repeat(4, 1fr); }
+      .filters {
+        grid-template-columns: minmax(165px, 1fr) minmax(135px, .8fr) minmax(110px, .62fr) 1.2fr auto;
+      }
+    }
+    @media (max-width: 760px) {
+      body { min-width: 0; }
+      .app { display: block; }
+      .sidebar { display: none; }
+      .main { padding: 14px; }
+      .topbar { justify-content: flex-start; overflow: auto; margin-bottom: 18px; }
+      .hero-tools { grid-template-columns: 1fr; }
+      .banner { grid-column: auto; }
+      .page-tabs { gap: 18px; flex-wrap: wrap; margin-left: 0; }
+      .top-search { width: 100%; margin-left: 0; }
+      .rank-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .filters { grid-template-columns: 1fr; }
+      .rank-main { grid-template-columns: 1fr; }
+      .rank-badge { width: auto; height: 34px; justify-content: start; padding: 0 12px; }
+      .side-item { grid-template-columns: 24px minmax(0, 1fr) 24px; }
+      .side-item .side-reps, .side-item .spark { display: none; }
+      .bgm-row { grid-template-columns: 1fr; }
+      .waterfall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-video { height: 520px; }
+    }
+  </style>
+</head>
+<body data-rank="routine">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo"><span class="logo-mark"></span>即创</div>
+      <div class="nav-item active"><span class="nav-icon"></span>灵感</div>
+      <div class="nav-item"><span class="nav-icon"></span>资产</div>
+      <div class="nav-sep"></div>
+      <div class="nav-title">成片创作</div>
+      <div class="nav-item"><span class="nav-icon"></span>Agent</div>
+      <div class="nav-item"><span class="nav-icon"></span>智能成片</div>
+      <div class="nav-item"><span class="nav-icon"></span>爆款裂变</div>
+      <div class="nav-sep"></div>
+      <div class="nav-title">原料创作</div>
+      <div class="nav-item"><span class="nav-icon"></span>数字人</div>
+      <div class="nav-item"><span class="nav-icon"></span>AI人物口播</div>
+      <div class="nav-item"><span class="nav-icon"></span>AI视频生成</div>
+      <div class="nav-item"><span class="nav-icon"></span>AI视频脚本</div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="pill">◐ 57个创意生产中...</div>
+        <div class="pill">🎨 组织⌄</div>
+        <div class="pill">超管　普通组织⌄</div>
+        <div class="pill">✦ 144,482</div>
+        <div class="avatar">AI</div>
+      </div>
+
+      <section class="hero-tools">
+        <div class="banner">
+          <h1>用 ai 激发创造</h1>
+          <p>一站式智能创意生产与管理平台</p>
+          <span class="cta">立即查看</span>
+        </div>
+        <div class="tool-card"><span class="tool-symbol">AI</span>AI视频生成</div>
+        <div class="tool-card"><span class="tool-symbol">AI</span>AI人物口播</div>
+        <div class="tool-card"><span class="tool-symbol">AI</span>数字人口播</div>
+        <div class="tool-card"><span class="tool-symbol">AI</span>智能成片</div>
+      </section>
+
+      <div class="page-tabs">
+        <div id="inspirationTab" class="page-tab">AI灵感广场</div>
+        <div class="page-tab active">热门素材</div>
+        <div class="top-search">⌕　请输入关键词搜索灵感方案</div>
+      </div>
+
+      <section class="rank-module">
+        <div class="module-head">
+          <div class="title-group">
+            <h2>创意榜单</h2>
+            <span class="tag-live">抖音竞价素材实时洞察</span>
+          </div>
+          <div class="module-actions">
+            <div class="ghost-btn">☆ 订阅榜单</div>
+            <div class="ghost-btn">↗ 导出选中</div>
+          </div>
+        </div>
+
+        <div class="rank-tabs" role="tablist">
+          <div class="rank-tab active" data-rank="routine"><strong>热门套路榜</strong><span>套路结构 · Agent成片</span></div>
+          <div class="rank-tab" data-rank="shot"><strong>语义分镜榜</strong><span>片段画面 · AI原料</span></div>
+          <div class="rank-tab" data-rank="script"><strong>热门脚本榜</strong><span>脚本钩子 · Agent脚本</span></div>
+          <div class="rank-tab" data-rank="hot"><strong>抖音热点榜</strong><span>热点趋势 · 风险提示</span></div>
+          <div class="rank-tab" data-rank="bgm"><strong>热门BGM榜</strong><span>音乐元素 · 成片调用</span></div>
+        </div>
+
+        <div class="filters">
+          <div class="select" id="subSelect"><label>子榜单</label><span class="select-value">短视频素材套路榜</span><div class="dropdown" id="subMenu"></div></div>
+          <div class="select" id="industrySelect"><label>行业</label><span class="select-value">全部</span><div class="dropdown industry-menu" id="industryMenu"></div></div>
+          <div class="select" id="dateSelect"><label>日期</label><span class="select-value">近7天</span><div class="dropdown" id="dateMenu"></div></div>
+          <div class="rank-search">⌕　搜索套路、分镜、脚本、话题、热点或BGM</div>
+          <div class="primary-btn">智能推荐适配榜单</div>
+        </div>
+
+        <div class="rank-layout">
+          <div>
+            <div class="top-list" id="topList"></div>
+          </div>
+          <aside class="side-board">
+            <div class="side-title"><span>榜单 Top 4-10</span><span style="color:#80758c;font-size:12px;">按消耗贡献排序</span></div>
+            <div class="side-list" id="sideList"></div>
+          </aside>
+        </div>
+
+        <div class="bgm-board" id="bgmBoard"></div>
+        <div class="rank-pager" id="rankPager"></div>
+        <div class="rank-cta" id="rankCta"></div>
+      </section>
+
+      <div class="material-divider">
+        <span>热门素材</span>
+        <span class="divider-note">与上方创意榜单分区展示，继续支持原有排序和个性化筛选</span>
+      </div>
+
+      <section class="materials">
+        <div class="sortbar">
+          <div class="sort-left">
+            <span class="active">热度高</span>
+            <span>点击率高</span>
+            <span>转化率高</span>
+            <span>3s 完播率高</span>
+          </div>
+          <div class="sort-right">
+            <span>近30天⌄</span>
+            <span>不限行业⌄</span>
+            <span>节点热点⌄</span>
+            <span>视频类型⌄</span>
+            <span>视频来源⌄</span>
+            <span>是否AI⌄</span>
+            <span>更多筛选 ♢</span>
+          </div>
+        </div>
+        <div class="waterfall">
+          <div class="material-card"><div class="video-thumb" data-tag="资深中产"><video src="assets/(2.0)6.8-1.mp4" muted loop autoplay playsinline preload="metadata"></video></div><div class="mat-info"><p>全家的收纳神器来了！整洁通...</p><div class="mat-stats"><div><b>700</b><span>热度</span></div><div><b>2.01%</b><span>点击率</span></div></div></div></div>
+          <div class="material-card"><div class="video-thumb" data-tag="资深中产"><video src="assets/oUqioiI0am6aPwqBMEV3yT9AZkiQA7pIQ2ZOI.mp4" muted loop autoplay playsinline preload="metadata"></video></div><div class="mat-info"><p>一件能提升气质的贴身好物，...</p><div class="mat-stats"><div><b>476</b><span>热度</span></div><div><b>2.30%</b><span>点击率</span></div></div></div></div>
+          <div class="material-card"><div class="video-thumb" data-tag="新锐白领"><video src="assets/osNAmTePMiD1igB0IPWtcs5BQiLkm9QwY9E9EV.mp4" muted loop autoplay playsinline preload="metadata"></video></div><div class="mat-info"><p>国货科研团队破译细胞密码，...</p><div class="mat-stats"><div><b>457</b><span>热度</span></div><div><b>1.68%</b><span>点击率</span></div></div></div></div>
+          <div class="material-card"><div class="video-thumb" data-tag="都市银发"><video src="assets/666075844098.mp4" muted loop autoplay playsinline preload="metadata"></video></div><div class="mat-info"><p>你的顾虑我们理解，无非是想...</p><div class="mat-stats"><div><b>386</b><span>热度</span></div><div><b>3.16%</b><span>点击率</span></div></div></div></div>
+          <div class="material-card"><div class="video-thumb" data-tag="都市银发"><video src="assets/659555069186.mp4" muted loop autoplay playsinline preload="metadata"></video></div><div class="mat-info"><p>夏季防晒乳，夏天不用怕晒黑...</p><div class="mat-stats"><div><b>369</b><span>热度</span></div><div><b>4.38%</b><span>点击率</span></div></div></div></div>
+          <div class="material-card"><div class="placeholder-thumb" data-tag="精致妈妈"></div><div class="mat-info"><p>热点/BGM 示例待补充，暂以趋势卡占位...</p><div class="mat-stats"><div><b>357</b><span>热度</span></div><div><b>1.87%</b><span>点击率</span></div></div></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="detail-modal" id="detailModal">
+    <div class="detail-page">
+      <div class="detail-head">
+        <h2 id="detailTitle">代表素材详情页</h2>
+        <div class="ghost-btn" id="closeDetail">关闭</div>
+      </div>
+      <div class="detail-related-section">
+        <h3>同套路关联素材</h3>
+        <div class="detail-related" id="detailRelated"></div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-video"><video id="detailVideo" src="assets/oQ971aHEPFwiiAliKAB3MBMi8QaahUVaz67LI.mp4" muted playsinline controls></video></div>
+        <div class="analysis-panel">
+          <div class="analysis-card">
+            <h3 id="detailRoutineName">解析的素材套路：套组权益促转型</h3>
+            <p class="routine-detail-structure" id="detailRoutineStructure">轻剧情/互动演绎 → 外观/细节展示 → 使用动作演示 → 效果/验证证明 → 礼盒/套组展示 → 社会证明 → 转化引导</p>
+            <div class="progress" id="detailProgress">
+              <span data-start="0" onclick="jumpSegment(0)"></span><span data-start="4" onclick="jumpSegment(4)"></span><span data-start="8" onclick="jumpSegment(8)"></span><span data-start="13" onclick="jumpSegment(13)"></span><span data-start="18" onclick="jumpSegment(18)"></span><span data-start="23" onclick="jumpSegment(23)"></span><span data-start="27" onclick="jumpSegment(27)"></span>
+            </div>
+            <div class="shot-row active" data-start="0" data-end="4" onclick="jumpSegment(0)"><div class="shot-time">0-4s</div><div><b>轻剧情/互动演绎</b><p>用生活化对话抛出需求，快速建立用户代入感。</p></div></div>
+            <div class="shot-row" data-start="4" data-end="8" onclick="jumpSegment(4)"><div class="shot-time">4-8s</div><div><b>外观/细节展示</b><p>展示商品质感、包装和关键细节，降低用户对商品认知成本。</p></div></div>
+            <div class="shot-row" data-start="8" data-end="13" onclick="jumpSegment(8)"><div class="shot-time">8-13s</div><div><b>使用动作演示</b><p>通过手部动作和使用过程说明商品如何解决问题。</p></div></div>
+            <div class="shot-row" data-start="13" data-end="18" onclick="jumpSegment(13)"><div class="shot-time">13-18s</div><div><b>效果/验证证明</b><p>以对比、验证或结果画面强化可信度。</p></div></div>
+            <div class="shot-row" data-start="18" data-end="23" onclick="jumpSegment(18)"><div class="shot-time">18-23s</div><div><b>礼盒/套组展示</b><p>集中展示套组权益，放大“划算”和“完整解决方案”的感知。</p></div></div>
+            <div class="shot-row" data-start="23" data-end="27" onclick="jumpSegment(23)"><div class="shot-time">23-27s</div><div><b>社会证明</b><p>使用评价、热卖、达人推荐等信号增强购买信心。</p></div></div>
+            <div class="shot-row" data-start="27" data-end="30" onclick="jumpSegment(27)"><div class="shot-time">27-30s</div><div><b>转化引导</b><p>用限时利益点和明确行动口令完成收口。</p></div></div>
+          </div>
+          <div class="analysis-card">
+            <h3>可调用方向</h3>
+            <a class="primary-btn" id="detailAgentLink" href="https://aic.oceanengine.com/agent/session?bpId=1669096915902479" target="_blank" rel="noopener">跳转 Agent 参考该套路成片</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fragment-modal" id="fragmentModal">
+    <div class="fragment-card">
+      <div class="fragment-head">
+        <span id="fragmentTitle">3s 分镜预览</span>
+        <div class="ghost-btn" id="closeFragment">关闭</div>
+      </div>
+      <div class="fragment-video"><video id="fragmentVideo" muted playsinline controls></video></div>
+      <div class="fragment-actions">
+        <div class="primary-btn" id="viewFullMaterial">查看完整素材</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const baseVideos = [
+      "assets/oQ971aHEPFwiiAliKAB3MBMi8QaahUVaz67LI.mp4",
+      "assets/oUIaEQBK7lfKcjGUfLwgenTup0Fl7INAaKw9CF.mp4",
+      "assets/61444a99af8f4e1b84154fa919fa1b58.mp4",
+      "assets/666702876162.mp4",
+      "assets/664414228226.mp4",
+      "assets/665674260994.mp4",
+      "assets/(2.0)6.8-1.mp4",
+      "assets/oUqioiI0am6aPwqBMEV3yT9AZkiQA7pIQ2ZOI.mp4",
+      "assets/osNAmTePMiD1igB0IPWtcs5BQiLkm9QwY9E9EV.mp4",
+      "assets/666075844098.mp4",
+      "assets/659555069186.mp4"
+    ];
+    const videos = baseVideos;
+    const routineAssetVideos = [
+      "assets/new-interaction/row_0019_31b11f1accf0bb3b.mp4",
+      "assets/new-interaction/row_0020_f3080949fbb9be0f.mp4",
+      "assets/new-interaction/row_0021_81829c9905df7249.mp4",
+      "assets/new-interaction/row_0022_a106dd1226813cbe.mp4",
+      "assets/new-interaction/row_0023_735c62de962e931a.mp4",
+      "assets/new-interaction/row_0024_3b7cbef10c573edd.mp4",
+      "assets/new-interaction/row_0026_d307efa3310523c7.mp4",
+      "assets/new-interaction/row_0028_2073bbe307924002.mp4",
+      "assets/new-interaction/row_0029_2b5e590b839dbd04.mp4",
+      "assets/new-interaction/row_0030_4da964407fc5eea7.mp4",
+      "assets/new-interaction/row_0031_fca03d0cd148837d.mp4",
+      "assets/new-interaction/row_0033_0a0a86cfa08cf51f.mp4",
+      "assets/new-interaction/row_0034_46821ac52ab49651.mp4",
+      "assets/new-interaction/row_0036_21f2e540863475cb.mp4"
+    ];
+    const routineCards = [
+      ["Top1", "套组权益促转型", "轻剧情/互动演绎 → 外观/细节展示 → 使用动作演示 → 效果/验证证明 → 礼盒/套组展示 → 社会证明 → 转化引导", ["轻剧情", "权益套组", "转化引导"], ["4.80%", "62%"], [0, 1, 2, 3, 4]],
+      ["Top2", "达人背书种草型", "明星/KOL/达人背书 → 日常需求场景 → 工艺/成分证明 → 使用动作演示 → 社会证明 → 促销利益信息 → 转化引导", ["达人背书", "日常场景", "促销利益"], ["4.62%", "60%"], [5, 6, 7, 1, 3]],
+      ["Top3", "效果对比说服型", "悬念/反问钩子 → 效果/验证证明 → 外观/细节展示 → 权威/证据背书 → 礼盒/套组展示 → 转化引导", ["反差对比", "效果证明", "商品展示"], ["4.34%", "58%"], [2, 4, 6, 8, 9]],
+      ["Top4", "口播强承诺型", "真人口播强承诺 → 情景冲突 → 卖点可视化 → 使用动作演示 → 转化引导", ["真人口播", "情景剧", "卖点可视化"], ["3.92%", "56%"], [3, 5, 7, 10, 11]],
+      ["Top5", "开箱福利型", "开箱展示 → 痛点提问 → 方案演示 → 套组利益点 → 福利收口", ["开箱展示", "痛点提问", "福利收口"], ["3.78%", "55%"], [4, 8, 12, 0, 6]],
+      ["Top6", "测评证据型", "测评口播 → 对比实验 → 细节特写 → 证据背书 → 行动引导", ["测评口播", "对比实验", "证据背书"], ["3.61%", "53%"], [9, 2, 7, 13, 1]],
+      ["Top7", "评论区召回型", "评论疑问 → 场景复现 → 商品回应 → 效果展示 → 评论区召回", ["评论钩子", "场景复现", "召回转化"], ["3.45%", "51%"], [10, 3, 8, 4, 14]],
+      ["Top8", "真实体验种草型", "素人体验 → 使用前状态 → 使用过程 → 使用后反馈 → 轻促销引导", ["素人体验", "前后反馈", "轻促销"], ["3.33%", "50%"], [11, 5, 0, 9, 15]],
+      ["Top9", "限时活动转化型", "价格锚点 → 活动稀缺 → 套组展示 → 社会证明 → 限时转化", ["价格锚点", "稀缺活动", "限时转化"], ["3.18%", "49%"], [12, 6, 2, 10, 1]],
+      ["Top10", "节日送礼场景型", "节日场景 → 送礼痛点 → 礼盒展示 → 人群适配 → 下单引导", ["节日场景", "礼盒展示", "人群适配"], ["3.04%", "47%"], [13, 7, 3, 11, 5]]
+    ];
+    const mediaPools = {
+      routine: [
+        [baseVideos[0], baseVideos[1], baseVideos[2]],
+        [baseVideos[3], baseVideos[4], baseVideos[5]],
+        [baseVideos[6], baseVideos[7], baseVideos[8]]
+      ],
+      routineSide: [baseVideos[8], baseVideos[9], baseVideos[10]],
+      shot: [
+        [baseVideos[2], baseVideos[4], baseVideos[6]],
+        [baseVideos[1]],
+        [baseVideos[5], baseVideos[7], baseVideos[10]]
+      ]
+    };
+
+    const options = {
+      routine: ["短视频素材套路榜", "短引直素材套路榜"],
+      shot: ["高3s完播榜", "高ctr榜", "高直播间点击榜"],
+      script: ["高消耗脚本榜", "高3s完播脚本榜", "关联素材量top榜"],
+      hot: ["热点榜", "种草热点榜", "飙升热点榜", "文娱热点榜", "社会热点榜"],
+      bgm: ["热门BGM榜"]
+    };
+    const industries = ["全部", "美妆", "日化", "食饮", "健康", "3C", "家居", "母婴", "社交", "金融", "工具", "短剧", "游戏"];
+    const dates = ["近1天", "近3天", "近7天", "近14天", "近30天"];
+
+    const data = {
+      routine: {
+        metric1: ["+20%", "素材arpu对比大盘"],
+        cta: "跳转 Agent 参考套路成片",
+        top: [
+          ["Top1", "套组权益促转型", "轻剧情/互动演绎 → 外观/细节展示 → 使用动作演示 → 效果/验证证明 → 礼盒/套组展示 → 社会证明 → 转化引导", ["4.8%", "CTR"], ["62%", "3s完播率"]],
+          ["Top2", "达人背书种草型", "明星/KOL/达人背书 → 日常需求场景 → 工艺/成分证明 → 使用动作演示 → 社会证明 → 促销利益信息 → 转化引导", ["4.3%", "CTR"], ["58%", "3s完播率"]],
+          ["Top3", "效果对比说服型", "悬念/反问钩子 → 效果/验证证明 → 外观/细节展示 → 权威/证据背书 → 礼盒/套组展示 → 转化引导", ["3.9%", "CTR"], ["55%", "3s完播率"]]
+        ],
+        side: ["成分党证明型", "痛点提问型", "开箱福利型", "评论区召回型", "真实测评型", "限时活动型", "节日送礼型"]
+      },
+      shot: {
+        metric1: ["+30%", "素材arpu对比大盘"],
+        cta: "跳转 AI 原料参考分镜制作",
+        top: [
+          ["Top1", "怼脸特写变妆", "特写镜头展示春日彩色系妆面，卡点变装吸睛，适配美妆-彩妆类目", ["+18%", "3s完播率对比大盘"], ["4.9%", "CTR"]],
+          ["Top2", "冰块化吸睛创意", "商品冰块化 x 炎热/冰感场景，结合夏季炎热属性传递商品冰爽/修护等卖点，适配美妆、食饮行业", ["+15%", "3s完播率对比大盘"], ["4.4%", "CTR"]],
+          ["Top3", "素人主播机制讲解", "货品布满直播间置景，电商主播人设强营销感口播介绍抽奖福利活动", ["+13%", "直播间点击对比"], ["3.8%", "CVR"]]
+        ],
+        side: ["手部近景试用", "产品冰感特写", "主播福利牌", "前后效果对比", "场景痛点复现", "商品质感扫拍", "情绪反应特写"]
+      },
+      script: {
+        metric1: ["+24%", "素材arpu对比大盘"],
+        cta: "跳转 Agent 参考脚本生成",
+        top: [
+          ["Top1", "我两百一箱的时候，你不买，我买一送一的时候，你犹豫现在好了", "强价格锚点 + 错失恐惧 + 促销反转，适合食饮、农产品、日化囤货型商品", ["+21%", "3s完播率对比大盘"], ["3.2万+", "关联素材量级"]],
+          ["Top2", "枇杷用了果子金黄肉头厚，苹果用了果型周正红的透亮", "用具象结果描述替代抽象卖点，适合农资、食饮、健康类效果型表达", ["+17%", "3s完播率对比大盘"], ["2.6万+", "关联素材量级"]],
+          ["Top3", "如果你的卸妆油用完了，那二六年就不要再买了", "反常识开头制造停顿，后接替代方案和强利益点，适合彩妆护肤类目", ["+15%", "3s完播率对比大盘"], ["2.1万+", "关联素材量级"]]
+        ],
+        side: ["别再乱买了，懂行的人只看这一点", "家里有这个需求的，先别急着下单", "为什么同样预算，别人跑量更快", "不是所有同款都值得买", "618前先看这三个细节", "我妈用了三天让我回购", "预算少也能跑起来的关键"]
+      },
+      hot: {
+        metric1: ["+16%", "素材arpu对比大盘"],
+        cta: "跳转 Agent 热点改写成片",
+        top: [
+          ["Top1", "端午后第一波清爽消费需求上涨", "轻热点适合嫁接防晒、清洁、饮品、家居降温等商品卖点，风险低、跟进快", ["+42%", "热度增速"], ["低", "风险提示"]],
+          ["Top2", "毕业季宿舍搬家需求", "天然触发收纳、家清、行李、同城服务等消费场景，适合做清单式内容", ["+37%", "热度增速"], ["低", "风险提示"]],
+          ["Top3", "夏季通勤防晒讨论", "可结合通勤、户外、妆容持久、防晒补涂等具体场景展开", ["+31%", "热度增速"], ["中", "风险提示"]]
+        ],
+        side: ["暑期亲子出游规划", "高考后电子产品焕新", "夜市本地生活升温", "空调房干燥护理", "轻运动穿搭趋势", "夏季冰感食饮", "社会议题争议热点"]
+      }
+    };
+
+    const bgmRows = [
+      ["人生路漫漫", "白小白", "26秒", "美妆、日化", "1128.9w", "21.5w", [0,1,2]],
+      ["爱上别人的人", "一棵树", "27秒", "食饮、母婴", "19.7w", "14.7w", [3,4,5]],
+      ["Can't Get You out of My Head", "Kylie Minogue", "30秒", "美妆", "42.2w", "13.8w", [6,7,8]],
+      ["不一定漂亮但是要快乐", "曹天天", "15秒", "社交、工具", "24.7w", "13.7w", [8,9,10]],
+      ["岁月如笔写春秋（流年版）", "湘小扎", "35秒", "平台电商", "39.5w", "13.2w", [1,4,6]]
+    ];
+
+    const topList = document.getElementById("topList");
+    const sideList = document.getElementById("sideList");
+    const rankCta = document.getElementById("rankCta");
+    const bgmBoard = document.getElementById("bgmBoard");
+    const rankPager = document.getElementById("rankPager");
+    const subMenu = document.getElementById("subMenu");
+    const industryMenu = document.getElementById("industryMenu");
+    const dateMenu = document.getElementById("dateMenu");
+    const detailModal = document.getElementById("detailModal");
+    const detailVideo = document.getElementById("detailVideo");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailRoutineName = document.getElementById("detailRoutineName");
+    const detailRoutineStructure = document.getElementById("detailRoutineStructure");
+    const detailRelated = document.getElementById("detailRelated");
+    const detailAgentLink = document.getElementById("detailAgentLink");
+    const fragmentModal = document.getElementById("fragmentModal");
+    const fragmentVideo = document.getElementById("fragmentVideo");
+    const fragmentTitle = document.getElementById("fragmentTitle");
+    const viewFullMaterial = document.getElementById("viewFullMaterial");
+    const AGENT_URL = "https://aic.oceanengine.com/agent/session?bpId=1669096915902479";
+    const AI_MATERIAL_URL = "https://aic.oceanengine.com/tools/ai_material/reference?bpId=1669096915902479";
+    let currentRank = "routine";
+    let selectedRankName = "Top1 套组权益促转型";
+    let selectedPrompt = "";
+
+    function spark(i = 0) {
+      const shapes = [
+        "M2 22 L14 18 L24 20 L35 10 L47 13 L60 5 L70 8",
+        "M2 20 L12 16 L23 18 L34 12 L46 15 L58 7 L70 4",
+        "M2 23 L13 21 L24 15 L35 17 L47 10 L59 12 L70 6"
+      ];
+      return `<svg class="spark" viewBox="0 0 74 28"><path d="${shapes[i % shapes.length]}"/></svg>`;
+    }
+    function reps(rank, topIndex = 0, small = false) {
+      const cls = small ? "side-rep" : "rep";
+      let pool = baseVideos.slice(topIndex, topIndex + 3);
+      let routineClickable = false;
+      let shotClickable = false;
+      if (rank === "routine" && !small) {
+        pool = mediaPools.routine[topIndex] || mediaPools.routine[0];
+        routineClickable = true;
+      } else if (rank === "routine" && small) {
+        pool = mediaPools.routineSide;
+      } else if (rank === "shot" && !small) {
+        pool = mediaPools.shot[topIndex] || mediaPools.shot[0];
+        shotClickable = true;
+      } else if (rank === "shot" && small) {
+        pool = mediaPools.shot[topIndex % mediaPools.shot.length] || mediaPools.shot[0];
+      }
+      return pool.map((src, i) => {
+        const attrs = routineClickable
+          ? `data-video="${src}" data-detail="routine"`
+          : shotClickable
+            ? `data-video="${src}" data-fragment="shot" data-title="Top${topIndex + 1} 语义分镜 · 前3s"`
+            : "";
+        const videoSrc = shotClickable ? `${src}#t=0,3` : src;
+        return `<div class="${cls}" ${attrs}><video src="${videoSrc}" muted playsinline preload="metadata"></video></div>`;
+      }).join("");
+    }
+    function renderDropdowns(rank) {
+      subMenu.innerHTML = options[rank].map((item, i) => `<div class="drop-option ${i === 0 ? "active" : ""}">${item}</div>`).join("");
+      industryMenu.innerHTML = industries.map((item, i) => `<div class="drop-option ${i === 0 ? "active" : ""}">${item}</div>`).join("");
+      dateMenu.innerHTML = dates.map((item, i) => `<div class="drop-option ${item === "近7天" ? "active" : ""}">${item}</div>`).join("");
+      document.querySelector("#subSelect .select-value").textContent = options[rank][0];
+      document.querySelector("#industrySelect .select-value").textContent = "全部";
+      document.querySelector("#dateSelect .select-value").textContent = "近7天";
+    }
+    function renderPager(rank) {
+      const totals = { routine: 10, shot: 8, script: 6, hot: 5, bgm: 9 };
+      const total = totals[rank] || 10;
+      rankPager.innerHTML = `
+        <span class="pager-btn disabled">上一页</span>
+        <span class="pager-page active">1</span>
+        <span class="pager-page">2</span>
+        <span class="pager-page">3</span>
+        <span class="pager-more">...</span>
+        <span class="pager-page">${total}</span>
+        <span class="pager-btn">下一页</span>
+        <span class="pager-total">共 ${total} 页 · 每页 10 条</span>
+      `;
+    }
+    function renderRank(rank) {
+      currentRank = rank;
+      document.body.dataset.rank = rank;
+      renderDropdowns(rank);
+      if (rank === "routine") {
+        renderRoutineCards();
+        return;
+      }
+      if (rank === "bgm") {
+        renderBgm();
+        return;
+      }
+      const cfg = data[rank];
+      topList.innerHTML = cfg.top.map((item, idx) => `
+        <article class="rank-card ${idx === 0 ? "top1 selected" : ""}" data-select-name="${item[0]} ${item[1]}" data-select-feature="${item[2]}">
+          <div class="rank-main">
+            <div class="rank-badge">${item[0]}</div>
+            <div class="rank-body">
+              <h3>${item[1]}</h3>
+              <p class="rank-feature">${item[2]}</p>
+              <div class="rank-meta">
+                <div class="meta-item"><strong>${cfg.metric1[0]}</strong><span>${cfg.metric1[1]}</span></div>
+                <div class="meta-item"><strong>${item[3][0]}</strong><span>${item[3][1]}</span></div>
+                <div class="meta-item"><strong>${item[4][0]}</strong><span>${item[4][1]}</span></div>
+              </div>
+            </div>
+            <div class="rank-side">
+              <div class="mini-head"><span class="star">★</span>${spark(idx)}<span>Top3消耗素材</span></div>
+              <div class="rep-row">${reps(rank, idx)}</div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+      sideList.innerHTML = cfg.side.map((title, i) => `
+        <div class="side-item" data-select-name="Top${i + 4} ${title}" data-select-feature="${rank === "shot" ? "参考该高价值语义分镜画面，生成同构视频原料。" : "参考该榜单位的高消耗素材结构进行创意延展。"}">
+          <div class="side-index">${String(i + 4).padStart(2, "0")}</div>
+          <div class="side-main"><b>${title}</b><span>${rank === "shot" ? "分镜画面 · 可查看完整素材" : "关联素材 Top3 · 消耗趋势上升"}</span></div>
+          <div class="star">★</div>
+          <div class="side-reps">${reps(rank, i, true)}</div>
+          <div class="trend ${i === 6 ? "risk" : i === 1 ? "hot" : ""}">${i === 6 ? "审慎" : i === 1 ? "热" : "↑" + (18 - i * 2) + "%"}</div>
+        </div>
+      `).join("");
+      selectedRankName = `${cfg.top[0][0]} ${cfg.top[0][1]}`;
+      selectedPrompt = buildToolPrompt(rank, selectedRankName, cfg.top[0][2]);
+      renderToolCta(cfg.cta);
+      renderPager(rank);
+      bindVideoOpen();
+      bindRankSelection(cfg.cta);
+    }
+
+    function getRoutineVideos(card) {
+      return card[5].map(index => routineAssetVideos[index % routineAssetVideos.length]);
+    }
+
+    function videoPreviewSrc(src, index = 0) {
+      const t = (0.8 + (index % 5) * 0.45).toFixed(1);
+      return `${src}#t=${t}`;
+    }
+
+    function renderRoutineCards() {
+      const ctaText = data.routine.cta;
+      topList.innerHTML = routineCards.map((card, index) => {
+        const videoSet = getRoutineVideos(card);
+        return `
+          <article class="routine-tile ${index === 0 ? "top1 selected" : ""}" data-routine-index="${index}" data-select-name="${card[0]} ${card[1]}" data-select-feature="${card[2]}">
+            <div class="routine-ribbon"><strong>${String(index + 1).padStart(2, "0")}</strong></div>
+            <div class="stack-stage">
+              ${videoSet.map((src, videoIndex) => `<div class="stack-video ${videoIndex === 0 ? "is-dynamic" : "is-static"}"><video src="${videoPreviewSrc(src, videoIndex)}" ${videoIndex === 0 ? "muted loop autoplay" : "muted"} playsinline preload="metadata"></video></div>`).join("")}
+              <div class="routine-play">▶</div>
+            </div>
+            <div class="routine-card-info">
+              <h3>${card[1]}</h3>
+              <div class="routine-metrics"><span>点击率 <b>${card[4][0]}</b></span><span>3s完播 <b>${card[4][1]}</b></span><span>素材arpu <b>+${28 - index * 2}%</b></span></div>
+            </div>
+          </article>
+        `;
+      }).join("");
+      sideList.innerHTML = "";
+      selectedRankName = `${routineCards[0][0]} ${routineCards[0][1]}`;
+      selectedPrompt = buildToolPrompt("routine", selectedRankName, routineCards[0][2]);
+      renderToolCta(ctaText);
+      renderPager("routine");
+      document.querySelectorAll(".routine-tile").forEach(tile => {
+        tile.addEventListener("click", () => {
+          document.querySelectorAll(".routine-tile").forEach(item => item.classList.remove("selected"));
+          tile.classList.add("selected");
+          const card = routineCards[Number(tile.dataset.routineIndex || 0)] || routineCards[0];
+          selectedRankName = `${card[0]} ${card[1]}`;
+          selectedPrompt = buildToolPrompt("routine", selectedRankName, card[2]);
+          renderToolCta(ctaText);
+          openRoutineDetail(card);
+        });
+      });
+      hydrateRoutineVideos(topList);
+    }
+
+    function hydrateRoutineVideos(scope = document) {
+      scope.querySelectorAll(".stack-video.is-dynamic video, .detail-related-card video").forEach((video, index) => {
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.addEventListener("loadedmetadata", () => {
+          const seekTo = Math.min(0.8 + (index % 5) * 0.35, Math.max(0, (video.duration || 2) - 0.2));
+          if (Number.isFinite(seekTo) && seekTo > 0) {
+            try { video.currentTime = seekTo; } catch (e) {}
+          }
+        }, { once: true });
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === "function") playPromise.catch(() => {});
+      });
+    }
+
+    function openRoutineDetail(card) {
+      const videoSet = getRoutineVideos(card);
+      const mainVideo = videoSet[0];
+      detailTitle.textContent = `${card[0]} ${card[1]} · 套路详情`;
+      detailRoutineName.textContent = `解析的素材套路：${card[1]}`;
+      detailRoutineStructure.textContent = card[2];
+      detailVideo.src = mainVideo;
+      detailVideo.currentTime = 0;
+      detailVideo.dataset.pendingSeek = "0";
+      detailRelated.innerHTML = videoSet.map((src, index) => `
+        <div class="detail-related-card ${index === 0 ? "active" : ""}" data-related-video="${src}" data-label="${index === 0 ? "当前素材" : "关联素材 " + String(index).padStart(2, "0")}">
+          <video src="${videoPreviewSrc(src, index)}" muted loop autoplay playsinline preload="auto"></video>
+        </div>
+      `).join("");
+      detailRelated.querySelectorAll("[data-related-video]").forEach(item => {
+        item.addEventListener("click", () => {
+          detailRelated.querySelectorAll("[data-related-video]").forEach(el => el.classList.remove("active"));
+          item.classList.add("active");
+          detailVideo.src = item.dataset.relatedVideo;
+          detailVideo.dataset.pendingSeek = "0";
+          detailVideo.currentTime = 0;
+          setActiveSegment(0);
+        });
+      });
+      hydrateRoutineVideos(detailRelated);
+      detailAgentLink.href = getToolUrl("routine");
+      detailModal.classList.add("open");
+      setActiveSegment(0);
+    }
+
+    function renderBgm() {
+      currentRank = "bgm";
+      selectedRankName = `Top1 ${bgmRows[0][0]}`;
+      selectedPrompt = buildToolPrompt("bgm", selectedRankName, `音乐名称：${bgmRows[0][0]}；作者：${bgmRows[0][1]}；音乐时长：${bgmRows[0][2]}；主要应用行业：${bgmRows[0][3]}。`);
+      bgmBoard.innerHTML = `
+        <div class="bgm-row bgm-head">
+          <div>音乐</div><div>主要应用行业</div><div>关联素材消耗</div><div>关联素材数</div><div>热门视频Top3</div>
+        </div>
+        ${bgmRows.map((row, i) => `
+          <div class="bgm-row ${i === 0 ? "selected" : ""}" data-select-name="Top${i + 1} ${row[0]}">
+            <div class="music-cell"><div class="cover"></div><div><b>${row[0]}</b><span>作者：${row[1]}　音乐时长：${row[2]}</span></div></div>
+            <div class="industry-red">${row[3]}</div>
+            <div><b>${row[4]}</b><span>近7天消耗</span></div>
+            <div><b>${row[5]}</b><span>关联素材数</span></div>
+            <div class="bgm-videos">${row[6].map(v => `<div class="side-rep"><video src="${videos[v]}" muted playsinline preload="metadata"></video></div>`).join("")}</div>
+          </div>
+        `).join("")}
+      `;
+      document.querySelectorAll(".bgm-row:not(.bgm-head)").forEach(row => {
+        row.addEventListener("click", () => {
+          document.querySelectorAll(".bgm-row").forEach(item => item.classList.remove("selected"));
+          row.classList.add("selected");
+          const rowIndex = Array.from(document.querySelectorAll(".bgm-row:not(.bgm-head)")).indexOf(row);
+          const music = bgmRows[rowIndex] || bgmRows[0];
+          selectedRankName = row.dataset.selectName || `Top${rowIndex + 1} ${music[0]}`;
+          selectedPrompt = buildToolPrompt("bgm", selectedRankName, `音乐名称：${music[0]}；作者：${music[1]}；音乐时长：${music[2]}；主要应用行业：${music[3]}。`);
+          renderToolCta("BGM");
+        });
+      });
+      renderToolCta("BGM");
+      renderPager("bgm");
+      bindVideoOpen();
+    }
+    function bindVideoOpen() {
+      document.querySelectorAll("[data-detail='routine']").forEach(el => {
+        el.onclick = (event) => {
+          event.stopPropagation();
+          detailVideo.src = el.dataset.video;
+          detailModal.classList.add("open");
+          detailVideo.currentTime = 0;
+          setActiveSegment(0);
+        };
+      });
+      document.querySelectorAll("[data-fragment='shot']").forEach(el => {
+        el.onclick = (event) => {
+          event.stopPropagation();
+          fragmentVideo.src = `${el.dataset.video}#t=0,3`;
+          fragmentVideo.dataset.fullSrc = el.dataset.video;
+          fragmentTitle.textContent = el.dataset.title || "3s 分镜预览";
+          viewFullMaterial.textContent = "查看完整素材";
+          fragmentModal.classList.add("open");
+        };
+      });
+    }
+
+    function bindRankSelection(ctaText) {
+      document.querySelectorAll(".rank-card, .side-item").forEach(card => {
+        card.addEventListener("click", () => {
+          document.querySelectorAll(".rank-card, .side-item").forEach(item => item.classList.remove("selected"));
+          card.classList.add("selected");
+          selectedRankName = card.dataset.selectName || "当前榜单位";
+          selectedPrompt = buildToolPrompt(currentRank, selectedRankName, card.dataset.selectFeature || "");
+          renderToolCta(ctaText);
+        });
+      });
+    }
+
+    function buildToolPrompt(rank, name, feature) {
+      if (rank === "shot") {
+        return `请基于热门语义分镜榜单中【${name}】进行AI视频原料制作。参考分镜特征：${feature}。请自动生成适合AI视频生成的提示词，要求保留该分镜的镜头语言、主体动作、场景氛围和转化目标，并适配广告主商品卖点。`;
+      }
+      if (rank === "routine") {
+        return `请参考热门套路榜单中【${name}】套路进行成片制作。参考套路结构：${feature}。请结合客户商品卖点生成可投放的短视频广告成片方案。`;
+      }
+      if (rank === "bgm") {
+        return `请应用热门BGM榜中勾选的音乐【${name}】进行素材制作。${feature}请将该音乐作为成片节奏和情绪元素，生成适合广告素材的画面节奏、镜头转场和商品卖点呈现方案。`;
+      }
+      return `请参考热门素材榜单中【${name}】的高价值创意特征进行素材制作。参考信息：${feature}`;
+    }
+
+    function getToolUrl(rank, tool = "default") {
+      const param = encodeURIComponent(selectedPrompt);
+      if (rank === "shot") {
+        return `${AI_MATERIAL_URL}&source=hot_rank&selectedRank=${encodeURIComponent(selectedRankName)}&prompt=${param}`;
+      }
+      if (rank === "bgm" && tool === "material") {
+        return `${AI_MATERIAL_URL}&source=hot_bgm_rank&selectedMusic=${encodeURIComponent(selectedRankName)}&prompt=${param}`;
+      }
+      if (rank === "bgm") {
+        return `${AGENT_URL}&source=hot_bgm_rank&selectedMusic=${encodeURIComponent(selectedRankName)}&query=${param}`;
+      }
+      return `${AGENT_URL}&source=hot_rank&selectedRank=${encodeURIComponent(selectedRankName)}&query=${param}`;
+    }
+
+    function renderToolCta(ctaText) {
+      const targetUrl = getToolUrl(currentRank);
+      const targetName = currentRank === "shot" ? "即创 AI 视频生成工具" : currentRank === "bgm" ? "即创 Agent / AI 原料工具" : "即创 Agent 工具";
+      const buttons = currentRank === "bgm"
+        ? `<a class="primary-btn" href="${getToolUrl("bgm", "agent")}" target="_blank" rel="noopener">跳转 Agent 应用 BGM 成片</a><a class="primary-btn" href="${getToolUrl("bgm", "material")}" target="_blank" rel="noopener">跳转 AI 原料工具应用 BGM 制作</a>`
+        : `<a class="primary-btn" href="${targetUrl}" target="_blank" rel="noopener">${ctaText}</a>`;
+      rankCta.innerHTML = `
+        <div class="prefill-preview">
+          <b>将跳转至${targetName}并自动回填</b>
+          ${selectedPrompt}
+        </div>
+        <div class="tool-actions">${buttons}</div>
+      `;
+    }
+
+    function setActiveSegment(time) {
+      const rows = Array.from(document.querySelectorAll(".shot-row"));
+      const activeIndex = Math.max(0, rows.findIndex(row => {
+        const start = Number(row.dataset.start);
+        const end = Number(row.dataset.end);
+        return time >= start && time < end;
+      }));
+      rows.forEach((row, index) => row.classList.toggle("active", index === activeIndex));
+      document.querySelectorAll("#detailProgress span").forEach((seg, index) => seg.classList.toggle("active", index === activeIndex));
+    }
+
+    window.jumpSegment = function(start) {
+      const target = Number(start || 0);
+      detailVideo.dataset.pendingSeek = String(target);
+      if (detailVideo.readyState > 0) {
+        detailVideo.currentTime = target;
+      }
+      setActiveSegment(target);
+    };
+
+    document.querySelectorAll(".shot-row, #detailProgress span").forEach(el => {
+      el.addEventListener("click", () => {
+        const start = Number(el.dataset.start || 0);
+        window.jumpSegment(start);
+      });
+    });
+    document.addEventListener("click", (e) => {
+      const target = e.target.closest(".shot-row, #detailProgress span");
+      if (!target || !detailModal.classList.contains("open")) return;
+      const start = Number(target.dataset.start || 0);
+      detailVideo.dataset.pendingSeek = String(start);
+      if (detailVideo.readyState > 0) {
+        detailVideo.currentTime = start;
+      }
+      setActiveSegment(start);
+    });
+    detailVideo.addEventListener("loadedmetadata", () => {
+      if (detailVideo.dataset.pendingSeek) {
+        detailVideo.currentTime = Number(detailVideo.dataset.pendingSeek);
+      }
+    });
+    detailVideo.addEventListener("timeupdate", () => setActiveSegment(detailVideo.currentTime));
+
+    document.querySelectorAll(".rank-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".rank-tab").forEach(item => item.classList.remove("active"));
+        tab.classList.add("active");
+        renderRank(tab.dataset.rank);
+      });
+    });
+    document.querySelectorAll(".select").forEach(sel => {
+      sel.addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll(".select").forEach(item => { if (item !== sel) item.classList.remove("open"); });
+        sel.classList.toggle("open");
+      });
+    });
+    document.body.addEventListener("click", () => document.querySelectorAll(".select").forEach(sel => sel.classList.remove("open")));
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("drop-option")) return;
+      const select = e.target.closest(".select");
+      select.querySelector(".select-value").textContent = e.target.textContent;
+      select.querySelectorAll(".drop-option").forEach(item => item.classList.remove("active"));
+      e.target.classList.add("active");
+    });
+    document.getElementById("closeDetail").onclick = () => {
+      detailModal.classList.remove("open");
+      detailVideo.pause();
+    };
+    document.getElementById("closeFragment").onclick = () => {
+      fragmentModal.classList.remove("open");
+      fragmentVideo.pause();
+    };
+    viewFullMaterial.onclick = () => {
+      if (!fragmentVideo.dataset.fullSrc) return;
+      fragmentVideo.src = fragmentVideo.dataset.fullSrc;
+      viewFullMaterial.textContent = "正在查看完整素材";
+    };
+    detailModal.addEventListener("click", (e) => {
+      if (e.target === detailModal) {
+        detailModal.classList.remove("open");
+        detailVideo.pause();
+      }
+    });
+    fragmentModal.addEventListener("click", (e) => {
+      if (e.target === fragmentModal) {
+        fragmentModal.classList.remove("open");
+        fragmentVideo.pause();
+      }
+    });
+    document.getElementById("inspirationTab").addEventListener("click", () => {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: "switch-module", target: "inspiration" }, "*");
+      } else {
+        window.location.href = "inspiration-batch-ui.html";
+      }
+    });
+
+    renderRank("routine");
+  </script>
+</body>
+</html>
