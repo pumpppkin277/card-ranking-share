@@ -1680,6 +1680,12 @@
       return `${src}#t=${t}`;
     }
 
+    function posterForVideo(src) {
+      return src
+        .replace("assets/new-interaction/", "assets/posters/new-interaction/")
+        .replace(/\.mp4$/, ".jpg");
+    }
+
     function renderRoutineCards() {
       const ctaText = data.routine.cta;
       topList.innerHTML = routineCards.map((card, index) => {
@@ -1688,7 +1694,10 @@
           <article class="routine-tile ${index === 0 ? "top1 selected" : ""}" data-routine-index="${index}" data-select-name="${card[0]} ${card[1]}" data-select-feature="${card[2]}">
             <div class="routine-ribbon"><strong>${String(index + 1).padStart(2, "0")}</strong></div>
             <div class="stack-stage">
-              ${videoSet.map((src, videoIndex) => `<div class="stack-video ${videoIndex === 0 ? "is-dynamic" : "is-static"}"><video src="${videoPreviewSrc(src, videoIndex)}" ${videoIndex === 0 ? "muted loop autoplay" : "muted"} playsinline preload="metadata"></video></div>`).join("")}
+              ${videoSet.map((src, videoIndex) => {
+                const isHero = videoIndex === Math.min(2, videoSet.length - 1);
+                return `<div class="stack-video ${isHero ? "is-dynamic" : "is-static"}"><video src="${videoPreviewSrc(src, videoIndex)}" poster="${posterForVideo(src)}" ${isHero ? "muted loop autoplay preload=\"metadata\"" : "muted preload=\"none\""} playsinline></video></div>`;
+              }).join("")}
               <div class="routine-play">▶</div>
             </div>
             <div class="routine-card-info">
@@ -1718,18 +1727,28 @@
     }
 
     function hydrateRoutineVideos(scope = document) {
-      scope.querySelectorAll(".stack-video.is-dynamic video, .detail-related-card video").forEach((video, index) => {
+      scope.querySelectorAll(".stack-video video, .detail-related-card video").forEach((video, index) => {
+        const shouldPlay = Boolean(video.closest(".stack-video.is-dynamic, .detail-related-card"));
         video.muted = true;
-        video.loop = true;
+        video.loop = shouldPlay;
         video.playsInline = true;
-        video.addEventListener("loadedmetadata", () => {
+        const seekPreview = () => {
           const seekTo = Math.min(0.8 + (index % 5) * 0.35, Math.max(0, (video.duration || 2) - 0.2));
           if (Number.isFinite(seekTo) && seekTo > 0) {
             try { video.currentTime = seekTo; } catch (e) {}
           }
-        }, { once: true });
-        const playPromise = video.play();
-        if (playPromise && typeof playPromise.catch === "function") playPromise.catch(() => {});
+        };
+        if (video.readyState >= 1) {
+          seekPreview();
+        } else {
+          video.addEventListener("loadedmetadata", seekPreview, { once: true });
+        }
+        if (shouldPlay) {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") playPromise.catch(() => {});
+        } else {
+          video.addEventListener("seeked", () => video.pause(), { once: true });
+        }
       });
     }
 
@@ -1739,12 +1758,13 @@
       detailTitle.textContent = `${card[0]} ${card[1]} · 套路详情`;
       detailRoutineName.textContent = `解析的素材套路：${card[1]}`;
       detailRoutineStructure.textContent = card[2];
+      detailVideo.poster = posterForVideo(mainVideo);
       detailVideo.src = mainVideo;
       detailVideo.currentTime = 0;
       detailVideo.dataset.pendingSeek = "0";
       detailRelated.innerHTML = videoSet.map((src, index) => `
         <div class="detail-related-card ${index === 0 ? "active" : ""}" data-related-video="${src}" data-label="${index === 0 ? "当前素材" : "关联素材 " + String(index).padStart(2, "0")}">
-          <video src="${videoPreviewSrc(src, index)}" muted loop autoplay playsinline preload="auto"></video>
+          <video src="${videoPreviewSrc(src, index)}" poster="${posterForVideo(src)}" muted loop autoplay playsinline preload="auto"></video>
         </div>
       `).join("");
       detailRelated.querySelectorAll("[data-related-video]").forEach(item => {
@@ -1752,6 +1772,7 @@
           detailRelated.querySelectorAll("[data-related-video]").forEach(el => el.classList.remove("active"));
           item.classList.add("active");
           detailVideo.src = item.dataset.relatedVideo;
+          detailVideo.poster = posterForVideo(item.dataset.relatedVideo);
           detailVideo.dataset.pendingSeek = "0";
           detailVideo.currentTime = 0;
           setActiveSegment(0);
